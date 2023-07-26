@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+# Kari Blog
+    - Unfinished project
+    - Status en desarrollo
 
 * Ruby version
+    - Rails 7.0.6
 
-* System dependencies
+* Gemas instaladas
+    - gem "bootstrap", "~> 5.2"
+    - gem "jquery-rails", "~> 4.6"
+    - gem "popper", "~> 0.5.3"
+    - gem "devise", "~> 4.9"
+    - gem "activestorage", "~> 7.0"
+    - gem 'carrierwave', '~> 3.0'  => 'Para carga de archivos comparible con Amazon S3, Google Cloud Storage, and Microsoft Azure'
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Database
+    - Postgresql
