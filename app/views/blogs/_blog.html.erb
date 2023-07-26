@@ -1,0 +1,51 @@
+<div class="mb-4 mt-4 card p-4 custom-container" id="<%= dom_id blog %>">
+  <div class="mb-3">
+    <% if blog.image.present? %>
+      <div class="img-responsive" style="position: relative; overflow: hidden; padding-bottom: 100%; width: 100%;">
+        <%= image_tag blog.image.url, style: "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: auto;" %>
+      </div>
+    <% end %>
+  </div>
+
+  <h5>Descripción</h5>
+  <p>
+    <%= blog.body %>
+  </p>
+  <hr>
+
+  <% blog.comments.order(created_at: :desc).each do |comment| %>
+    <div class="comment">
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <% if comment.user.img_profile.present? %>
+          <div class="profile-image">
+            <%= image_tag comment.user.img_profile.url, width: 50, height: 50, class:"rounded-3" %>
+          </div>
+        <% end %>
+        <p class="m-0"><strong><%= comment.user.email %></strong></p> 
+      </div>
+
+      <p><%= comment.text %></p>
+      <pre class="timestamp"><%= comment.created_at %></pre>
+      <hr>
+    </div>
+  <% end %>
+
+  <%= form_with(model: Comment.new, url: comments_path(blog_id: blog.id), local: true) do |form| %>
+    <div class="mb-3">
+      <%= form.label :text, "Escribe tu comentario:" %>
+      <%= form.text_area :text, class: "form-control", id: "comment" %>
+    </div>
+    <% if current_user %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+    <% else %>
+      <%= form.hidden_field :user_email, value: "Anónimo" %>
+    <% end %>
+    <%= form.hidden_field :blog_id, value: blog.id %>
+    <%= form.submit "Enviar", class: "btn btn-primary" %>
+  <% end %>
+
+  <% if current_user.admin? && action_name == "index" %>
+    <hr>
+    <%= link_to "Editar", blog_path(blog), class: "btn btn-primary" %>
+  <% end %>
+</div>
